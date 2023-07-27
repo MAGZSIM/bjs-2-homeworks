@@ -35,7 +35,7 @@ function getUsersNamesInAgeRange(users, gender) {
     if (result.length === 0) {
         return 0;
     }
-    return result.reduce((acc, user) => acc + user, 0) / result.length;
+    return result.reduce((acc, user) => acc + user.age, 0) / result.length;
 }
 
 console.log(getUsersNamesInAgeRange(people, "мужской")); // 32
