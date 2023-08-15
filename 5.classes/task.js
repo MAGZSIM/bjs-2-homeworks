@@ -11,14 +11,13 @@ class PrintEditionItem {
     }
     set state(newState) {
         if (newState < 0) {
-            return 0;
-        }
-        if (newState > 100) {
-            return 100;
-        }
+            this._state = 0;
+        } else if (newState > 100) {
+            this._state =  100;
+        } else {
         this._state = newState;
     }
-
+    }
     get state () {
         return this._state;
     }
@@ -39,44 +38,44 @@ const sherlock = new PrintEditionItem(
 class Magazine extends PrintEditionItem {
     constructor(name, releaseDate, pagesCount){
     super(name, releaseDate, pagesCount);
-    this.type = "Magazine";
+    this.type = "magazine";
     }
 }
 
 class Book extends PrintEditionItem {
-    constructor(name, releaseDate, pagesCount, author){
+    constructor(author, name, releaseDate, pagesCount){
     super(name, releaseDate, pagesCount);
     this.author = author;
-    this.type = "Book";
+    this.type = "book";
     }
 }
 
 class NovelBook extends Book {
-    constructor(name, releaseDate, pagesCount, author){
-    super(name, releaseDate, pagesCount, author);
+    constructor(author, name, releaseDate, pagesCount){
+    super(author, name, releaseDate, pagesCount);
     this.type = "novel"
     }
 }
 
 class FantasticBook extends Book {
-    constructor(name, releaseDate, pagesCount, author){
-    super(name, releaseDate, pagesCount, author);
+    constructor(author, name, releaseDate, pagesCount){
+    super(author, name, releaseDate, pagesCount);
     this.type = "fantastic"
     }
 }
 
 class DetectiveBook extends Book {
-    constructor(name, releaseDate, pagesCount, author){
-    super(name, releaseDate, pagesCount, author);
+    constructor(author, name, releaseDate, pagesCount){
+    super(author, name, releaseDate, pagesCount);
     this.type = "detective"
     }
 }
 
 const picknick = new FantasticBook(
+    "Аркадий и Борис Стругацкие",
     "Пикник на обочине",
     1972,
-    168,
-    "Аркадий и Борис Стругацкие"
+    168
   );
   
   console.log(picknick.author); //"Аркадий и Борис Стругацкие"
@@ -119,21 +118,21 @@ const library = new Library("Библиотека имени Ленина");
 
 library.addBook(
  new DetectiveBook(
-   "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
+    "Артур Конан Дойл",
+    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
    2019,
-   1008,
-   "Артур Конан Дойл"
+   1008
  )
 );
 library.addBook(
  new FantasticBook(
-   "Пикник на обочине",
+    "Аркадий и Борис Стругацкие",
+    "Пикник на обочине",
    1972,
-   168,
-   "Аркадий и Борис Стругацкие"
+   168
  )
 );
-library.addBook(new NovelBook("Машина времени", 1895, 138, "Герберт Уэллс"));
+library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
 library.addBook(new Magazine("Мурзилка", 1924, 60));
 
 console.log(library.findBookBy("name", "Властелин колец")); //null
@@ -144,4 +143,17 @@ library.giveBookByName("Машина времени");
 console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
 //console.log(library);
 
+
+
+const printItem = new PrintEditionItem(
+    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
+    2019,
+    1008
+   )
+
+
+printItem.state = 90;
+console.log(printItem.state)
+printItem.fix();
+console.log(printItem.state)
 
